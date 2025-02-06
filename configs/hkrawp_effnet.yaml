@@ -1,0 +1,54 @@
+model: "hkrawp_effnetb1"
+dataset: "neuraltextures"
+checkpoint_dir: "/home/shahid/generated_image_detection/detectors/weights/QAD/train_img240_shuflfe_patient24_raw_c23_c40_batch32_gamma0.006_alpha0.002_best.pth"
+output_folder: "./outputs/"
+
+data_quality: ["raw", "c23", "c40"]
+test_data_quality: ["raw", "c23", "c40"]
+data_shuffle: False # True if flatten all, False: return data in pair [raw, compress, lb]
+is_train: True
+
+SYS:
+    use_cuda: True
+    num_gpus: 4
+    GPUs: "0,1,2,3"
+    num_workers: 16
+    random_seed: 41
+
+TRAIN:
+    num_classes: 2
+    image_size: 240
+
+    batch_size: 32
+    lr: 0.0002
+    weight_decay: 0.0001
+    momentum: 0.9
+    optimizer: "Adam"
+    scheduler: "one_cycle"
+    epochs: 32
+    lb_smoothing: False
+    validate_inside: True
+    warming_up: 3
+    apply_earlystop: True
+    patience: 100
+    watchdb: False
+    lr_decay_rate: 0.1
+    lr_decay_epochs: [10, 16, 24]
+    cutmix: False
+    dynamic_cutout: False
+    dynamic_cutmix: False
+    logit_weight: False
+    alpha_logit: 1
+
+    AWP:
+        awp_gamma: 0.006
+        awp_warmup: 3
+        temperature: 4
+
+    HKR:
+        weights: [0.1, 0.25, 0.5, 0.0, 0.0, 0.0]
+        sigma: 6.0
+        alpha_hkr: 0.002
+        label_reg: False
+    rebuttal:
+        train_distortion: "all"
