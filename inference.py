@@ -1,42 +1,3 @@
-"""
-####################################################################################################
-Sungkyunkwan University Property
-Authors of the original Deepfake Detection Model: Simon S. Woo, Binh Lee
-Integration of the AI model into the AI Summit: Muhammad Shahid Muneer
-
-This project includes an AI detector named ADD, which was accepted and published at:
-https://cdn.aaai.org/ojs/19886/19886-13-23899-1-2-20220628.pdf.
-
-License:
-This AI model and associated resources are provided to you by Sungkyunkwan University under the 
-following license. By obtaining, using, and/or modifying this AI model, you agree to the terms 
-and conditions outlined below:
-
-Permission:
-Permission to use, copy, modify, and distribute this AI model and its documentation for any purpose 
-and without fee or royalty is hereby granted, provided that:
-1. The following copyright notice and statements, including this disclaimer, appear in all copies 
-   of the AI model and its documentation, including modifications made for internal use or distribution.
-2. Attribution is provided to Sungkyunkwan University and the original authors of the AI model.
-
-Disclaimer:
-THIS AI MODEL IS PROVIDED "AS IS," AND SUNGKYUNKWAN UNIVERSITY MAKES NO REPRESENTATIONS OR WARRANTIES, 
-EXPRESS OR IMPLIED. THIS INCLUDES, BUT IS NOT LIMITED TO, WARRANTIES OF MERCHANTABILITY OR FITNESS 
-FOR A PARTICULAR PURPOSE. USE OF THIS AI MODEL IS AT YOUR OWN RISK.
-
-Restrictions:
-- The name "Sungkyunkwan University" or its affiliates may not be used in advertising or publicity 
-  pertaining to the distribution of the AI model and/or its documentation without explicit permission.
-- The AI model may not be used in a manner that infringes any third-party intellectual property rights.
-
-Ownership:
-Title to copyright in this AI model, associated resources, and documentation shall remain with 
-Sungkyunkwan University. Users agree to preserve this attribution and comply with the terms outlined herein.
-
-For further inquiries, please contact Sungkyunkwan University or authors at swoo@g.skku.edu
-####################################################################################################
-"""
-
 import torch
 from torchvision import transforms
 from PIL import Image
@@ -183,7 +144,7 @@ def execute(model, dataset, batch_size=128, device="cpu"):
 def main(config, data_path, batch_size):
     """Main function to set up the model and run inference on a single image."""
     # device, _ = setup_device(config.SYS.num_gpus)
-    device= "cuda"
+    device= "cuda" if torch.cuda.is_available() else "cpu"
 
     # Load the pre-trained model
     model = load_model_add(config, device)
