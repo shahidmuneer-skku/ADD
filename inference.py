@@ -151,7 +151,7 @@ def main(config, data_path, batch_size):
     # image_tensor = process_image(image_path, config.TRAIN.image_size)
 
     # Run inference
-    image_paths, y_pred = execute(model, data_path, batch_size,"cuda")
+    image_paths, y_pred = execute(model, data_path, batch_size,device=device)
     
     # Create a DataFrame
     df = pd.DataFrame({'filepath': image_paths, 'prediction': y_pred})
