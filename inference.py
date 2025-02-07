@@ -50,7 +50,6 @@ def load_model_add(config, device):
     """Load the pre-trained model from checkpoint."""
     # print(f"Loading model: {bcolors.OKBLUE} {config.model} {bcolors.ENDC}")
     
-    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     model = load_model.model_selection(model_name="add", weight_path="../weights/ADD/resnet50_kd_valacc_img128_kd54_freq_swd_best.pth", num_out_classes=2)
     # Load weights
     model.to(device)
