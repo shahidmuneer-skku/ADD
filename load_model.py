@@ -10,6 +10,8 @@ import math
 import torchvision
 
 def transfer_weights(modelchoice: str, weight_path: str, num_out_classes=2):
+    #  if device is None:
+    device = "cuda" if torch.cuda.is_available() else "cpu"
     modelchoice = modelchoice
     if modelchoice == 'xception':
         model = timm.create_model('xception', pretrained=False)
@@ -32,7 +34,7 @@ def transfer_weights(modelchoice: str, weight_path: str, num_out_classes=2):
     #     del model.last_linear
     
     if weight_path is not None:
-        state_dict = torch.load(weight_path)
+        state_dict = torch.load(weight_path,map_location=device)
         if 'state_dict' in state_dict.keys():
             weights = state_dict['state_dict']
         else:
